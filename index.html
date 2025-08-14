@@ -3,114 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>SoundingCast</title>
-    <!-- Current To-Dos:
-        1. Fix variable names to look nicer and be consistent
-        2. Update to latest formula
-        3. Add credits
-        4. Make be availible Online
-        5. Make look nicer
-        6. Add flavor warning text
-    -->
-        <style>
-            #risk {
-                padding: 5px 10px;
-                border-radius: 5px;
-                display: inline-block;
-            }
-            .num {
-                width: 25px;
-                padding: 3px 5px;
-                border-radius: 5px;
-                display: inline-block;
-            }
-        </style>
 </head>
 <body>
-    <h1>Tornado Risk v3.27</h1>
-    <p>Enter data from a sounding to estimate the tornado risk in the area!</p>
-    <label for="dew">Dew Point:</label>
-    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="dew"><br>
-
-    <label for="convt">ConvT:</label>
-    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="convt"><br>
-
-    <label for="lowlapse">0-3km Lapse Rate:</label>
-    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="lowlapse"><br>
-
-    <label for="highlapse">3-6km Lapse Rate:</label>
-    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="highlapse"><br>
-
-    <label for="sfc1">SFC-1km Shear:</label>
-    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="sfc1"><br>
-
-    <label for="sfc3">SFC-3km Shear:</label>
-    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="sfc3"><br>
-
-    <label for="sfc6">SFC-6km Shear:</label>
-    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="sfc6"><br>
-
-    <label for="crt">Critical Angle:</label>
-    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="crt"><br>
-
-    <label for="bunk">Bunkers Right Motion:</label>
-    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="bunk"><br>
-    
-    <button onclick="torRisk()">Calculate</button>
-    <p id="risk"></p>
-
-    <script>
-        function torRisk() {
-            let dew = parseFloat(document.getElementById("dew").value);
-            let convt = parseFloat(document.getElementById("convt").value);
-            let lowlapse = parseFloat(document.getElementById("lowlapse").value);
-            let highlapse = parseFloat(document.getElementById("highlapse").value);
-            let sfc1 = parseFloat(document.getElementById("sfc1").value);
-            let sfc3 = parseFloat(document.getElementById("sfc3").value);
-            let sfc6 = parseFloat(document.getElementById("sfc6").value);
-            let crt = parseFloat(document.getElementById("crt").value);
-            let bunk = parseFloat(document.getElementById("bunk").value);
-            let risk = 0;
-
-            let tortemp = (((dew-32)*(5/9)*2)-((convt-32)*(5/9))+((lowlapse+highlapse)*3)+((lowlapse)*3))-55;
-            let torshear = ((sfc1+sfc3+(Math.max((Math.min(crt,135)/2)-Math.max(bunk,10),0)*Math.min(sfc6/80,0.5)))*(Math.min(crt,45)/45));
-
-
-            if (tortemp > 0) {
-                risk = Math.trunc((1-(0.9**(tortemp**2*torshear**3*7*10**-9)))*100);
-            } else {
-                risk = 0;
-            }
-
-            document.getElementById("risk").innerText = "There is a " + risk + "% tornado risk";
-
-            let riskElement = document.getElementById("risk");
-
-            if (risk <= 2) {
-                riskElement.style.color = "#000000";
-                riskElement.style.backgroundColor = "#80C580";
-            } else if (risk <= 5) {
-                riskElement.style.color = "#000000";
-                riskElement.style.backgroundColor = "#C5A393";
-            } else if (risk <= 10) {
-                riskElement.style.color = "#000000";
-                riskElement.style.backgroundColor = "#FFEB80";
-            } else if (risk <= 15) {
-                riskElement.style.color = "#000000";
-                riskElement.style.backgroundColor = "#FF8080";
-            } else if (risk <= 30) {
-                riskElement.style.color = "#000000";
-                riskElement.style.backgroundColor = "#FF80FF";
-            } else if (risk <= 45) {
-                riskElement.style.color = "#000000";
-                riskElement.style.backgroundColor = "#C896F7";
-            } else if (risk <= 60) {
-                riskElement.style.color = "#000000";
-                riskElement.style.backgroundColor = "#104E8B";
-            } else if (risk <= 100) {
-                riskElement.style.color = "#FFFFFF";
-                riskElement.style.backgroundColor = "#000000";
-            }
-        }
-    </script>
+    <h1>Welcome to SoundingCast!</h1>
+    <p>Select a link to choose which equation you will like to use</p>
+    <a href="TORv3.27.html">Tornado Risk Forecast v3.27</a><br>
+    <a href="TORv3.50.html">Tornado Risk Forecast v3.50 (broken)</a><br><br><br>
+    <a href="https://x.com/SoundingCast">Twitter</a>
 </body>
 </html>
