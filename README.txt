@@ -1,7 +1,6 @@
-It said to include this
+Welcome to SoundingCast!
+The formulas are not made by me, I just put them onto javascript/html instead of Google Sheets.
+Why? I'm bored.
 
-basically soundingcast on google sheets is kinda weird, so I am making it on a site. 
-I would like to make more graphics but am limited by my knowledge
-
-Also these formulas are made by a friend not me, I just did some coding for fun
-
+This is experimental, the calculated risks aren't 100% accurate yet.
+Link to the creator's Twitter: https://x.com/SoundingCast

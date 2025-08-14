@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SoundingCast</title>
+    <style>
+            #risk {
+                padding: 5px 10px;
+                border-radius: 5px;
+                display: inline-block;
+            }
+            .num {
+                width: 25px;
+                padding: 3px 5px;
+                border-radius: 5px;
+                display: inline-block;
+            }
+        </style>
+</head>
+<body>
+    <h1>Tornado Risk v3.50 (broken)</h1>
+    <p>Enter data from a sounding to estimate the tornado risk in the area!</p>
+    <a href="main.html">Back to homepage</a><br>
+
+    <!--Variables-->
+    <label for="temp">Temperature:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="temp"><br>
+
+    <label for="dew">Dew Point:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="dew"><br>
+
+    <label for="sfc">SFC CAPE:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="sfc"><br>
+
+    <label for="ml">ML CINH:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="ml"><br>
+
+    <label for="pw">PW:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="pw"><br>
+
+    <label for="lowRH">LowRH:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="lowRH"><br>
+
+    <label for="kmLR">0-3km Lapse Rate:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="kmLR"><br>
+
+    <label for="mbLR">850-500mb Lapse Rate:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="mbLR"><br>
+
+    <label for="srh">0-3km SRH:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="srh"><br>
+
+    <label for="shear1">0-1km Shear:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="shear1"><br>
+
+    <label for="shear3">0-3km Shear:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="shear3"><br>
+
+    <label for="shear6">0-6km Shear:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="shear6"><br>
+
+    <label for="dd">Corfidi Downshear Direction:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="dd"><br>
+
+    <label for="dm">Corfidi Downshear Magnitude:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="dm"><br>
+
+    <label for="ud">Corfidi Upshear Direction:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="ud"><br>
+
+    <label for="um">Corfidi Upshear Magnitude:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="um"><br>
+
+    <label for="crt">Critical Angle:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="crt"><br>
+
+    <label for="wd">Mean Wind Direction:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="wd"><br>
+
+    <label for="wm">Mean Wind Magnitude:</label>
+    <input class="num" type="text" inputmode="decimal" pattern="-?[0-9]*[.]?[0-9]*" id="wm"><br>
+
+    <button onclick="torRisk()">Calculate</button>
+    <p id="risk"></p><br>
+    <p2>Sorry but this is broken currently, please come back later or use an older version!</p2>
+
+    <script>
+        function torRisk() {
+            let temp = parseFloat(document.getElementById("temp").value);
+            let dew = parseFloat(document.getElementById("dew").value);
+            let sfc = parseFloat(document.getElementById("sfc").value);
+            let ml = parseFloat(document.getElementById("ml").value);
+            let pw = parseFloat(document.getElementById("pw").value);
+            let lowRH = parseFloat(document.getElementById("lowRH").value);
+            let kmLR = parseFloat(document.getElementById("kmLR").value);
+            let mbLR = parseFloat(document.getElementById("mbLR").value);
+            let srh = parseFloat(document.getElementById("srh").value);
+            let shear1 = parseFloat(document.getElementById("shear1").value);
+            let shear3 = parseFloat(document.getElementById("shear3").value);
+            let shear6 = parseFloat(document.getElementById("shear6").value);
+            let dd = parseFloat(document.getElementById("dd").value);
+            let dm = parseFloat(document.getElementById("dm").value);
+            let ud = parseFloat(document.getElementById("ud").value);
+            let um = parseFloat(document.getElementById("um").value);
+            let crt = parseFloat(document.getElementById("crt").value);
+            let wd = parseFloat(document.getElementById("wd").value);
+            let wm = parseFloat(document.getElementById("wm").value);
+            let risk = 0;
+
+            risk = (Math.trunc((1-(0.9**(Math.min((sfc*(((lowRH/100)/(Math.exp((17.625*((dew-32)*5/9))/(243.04+((dew-32)*5/9)))/Math.exp((17.625*((temp-32)*5/9))/(243.04+((temp-32)*5/9)))))**2)),(0.5**(-ml/40)*8000),(0.5**(Math.max(9.5-(kmLR/(Math.exp((17.625*((dew-32)*5/9))/(243.04+((dew-32)*5/9)))/Math.exp((17.625*((temp-32)*5/9))/(243.04+((temp-32)*5/9))))),0))*8000),(0.4**(8-Math.min(mbLR+(pw-1.5),8))*8000))**1*((Math.max(Math.sqrt(um**2+wm**2-2*um*wm*Math.cos((ud-wd)*Math.PI/180))-(Math.max(shear1-shear3,0)+Math.max(shear3-shear6,0)),0)*Math.max(Math.sqrt(dm**2+wm**2-2*dm*wm*Math.cos((dd-wd)*Math.PI/180))-(Math.max(shear1-shear3,0)+Math.max(shear3-shear6,0)),0))*Math.min(srh/(shear3*5*((-1*(Math.atan2(wm*Math.sin((wd)*Math.PI/180)-um*Math.sin((ud)*Math.PI/180),wm*Math.cos((wd)*Math.PI/180)-um*Math.cos((ud)*Math.PI/180)))*180/Math.PI)/90)),1)*Math.min(crt/45,1)**2)**1.5*1.5*10**-8)))*100),0);
+
+            document.getElementById("risk").innerText = "There is a " + risk + "% tornado risk";
+
+            let riskElement = document.getElementById("risk");
+
+            if (risk <= 2) {
+                riskElement.style.color = "#000000";
+                riskElement.style.backgroundColor = "#80C580";
+            } else if (risk <= 5) {
+                riskElement.style.color = "#000000";
+                riskElement.style.backgroundColor = "#C5A393";
+            } else if (risk <= 10) {
+                riskElement.style.color = "#000000";
+                riskElement.style.backgroundColor = "#FFEB80";
+            } else if (risk <= 15) {
+                riskElement.style.color = "#000000";
+                riskElement.style.backgroundColor = "#FF8080";
+            } else if (risk <= 30) {
+                riskElement.style.color = "#000000";
+                riskElement.style.backgroundColor = "#FF80FF";
+            } else if (risk <= 45) {
+                riskElement.style.color = "#000000";
+                riskElement.style.backgroundColor = "#C896F7";
+            } else if (risk <= 60) {
+                riskElement.style.color = "#000000";
+                riskElement.style.backgroundColor = "#104E8B";
+            } else if (risk <= 100) {
+                riskElement.style.color = "#FFFFFF";
+                riskElement.style.backgroundColor = "#000000";
+            }
+        }
+    </script>
+</body>
+</html>
